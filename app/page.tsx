@@ -14,7 +14,7 @@ import {
   type Player, type SavedReport, type Grade
 } from '@/lib/data'
 
-/* ─── Crest SVG ─────────────────────────────────────────────────── */
+/* âââ Crest SVG âââââââââââââââââââââââââââââââââââââââââââââââââââ */
 const Crest = ({ size = 40 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 100 110" fill="none">
     <path d="M50 3 L97 18 L97 60 C97 84 75 103 50 107 C25 103 3 84 3 60 L3 18 Z" fill="#003f8a"/>
@@ -30,7 +30,7 @@ const Crest = ({ size = 40 }: { size?: number }) => (
   </svg>
 )
 
-/* ─── Grade button ───────────────────────────────────────────────── */
+/* âââ Grade button âââââââââââââââââââââââââââââââââââââââââââââââââ */
 const GradeBtn = ({ grade, selected, onClick }: { grade: Grade; selected: boolean; onClick: () => void }) => {
   const colors: Record<Grade, string> = {
     A: 'bg-[#00c853] border-[#00c853] text-white shadow-[0_2px_8px_rgba(0,200,83,.4)]',
@@ -51,7 +51,7 @@ const GradeBtn = ({ grade, selected, onClick }: { grade: Grade; selected: boolea
   )
 }
 
-/* ─── Main App ──────────────────────────────────────────────────── */
+/* âââ Main App ââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function ScoutingApp() {
   const [page, setPage] = useState<'obs' | 'rel'>('obs')
   const [players, setPlayers] = useState<Player[]>([])
@@ -216,7 +216,7 @@ function ScoutingApp() {
   }, [counter])
 
   const deleteReport = useCallback(async (fid: string) => {
-    if (!confirm('Eliminar este relatório definitivamente?')) return
+    if (!confirm('Eliminar este relatÃ³rio definitivamente?')) return
     await deleteDoc(doc(db, 'relatorios', fid))
     if (detailGroup) {
       const next = detailGroup.reports.filter(r => r.firestoreId !== fid)
@@ -225,11 +225,11 @@ function ScoutingApp() {
     }
   }, [detailGroup])
 
-  /* ── Render ── */
+  /* ââ Render ââ */
   const ov = active ? calcOverall(active.ratings, active.posicao) : null
   const pos = active ? POSICOES[active.posicao] : null
-  const saveLabels = { unsaved: ['pending', 'Por guardar'], saving: ['pending', 'A guardar…'], saved: ['ok', 'Guardado ✓'], error: ['err', 'Erro'] }
-  const [saveCls, saveTxt] = saveLabels[active?.savedState ?? 'unsaved'] ?? ['pending', '…']
+  const saveLabels = { unsaved: ['pending', 'Por guardar'], saving: ['pending', 'A guardarâ¦'], saved: ['ok', 'Guardado â'], error: ['err', 'Erro'] }
+  const [saveCls, saveTxt] = saveLabels[active?.savedState ?? 'unsaved'] ?? ['pending', 'â¦']
 
   return (
     <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
@@ -240,16 +240,16 @@ function ScoutingApp() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <Crest size={40} />
           <div>
-            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 16, letterSpacing: 2, textTransform: 'uppercase' }}>Atlético Cabeceirense</div>
-            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, fontSize: 9, letterSpacing: 3, color: 'var(--ac-red)', textTransform: 'uppercase', marginTop: 1 }}>Observação de Jogadores</div>
+            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 16, letterSpacing: 2, textTransform: 'uppercase' }}>AtlÃ©tico Cabeceirense</div>
+            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, fontSize: 9, letterSpacing: 3, color: 'var(--ac-red)', textTransform: 'uppercase', marginTop: 1 }}>ObservaÃ§Ã£o de Jogadores</div>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 20, fontSize: 11, fontWeight: 600, background: 'var(--surface2)', border: '1px solid var(--border2)', color: 'var(--text-dim)' }}>
             <div style={{ width: 7, height: 7, borderRadius: '50%', background: fbStatus === 'ok' ? 'var(--grade-a)' : fbStatus === 'error' ? 'var(--grade-e)' : 'var(--grade-c)', boxShadow: fbStatus === 'ok' ? '0 0 6px rgba(0,200,83,.5)' : 'none', flexShrink: 0, transition: 'background .3s' }} />
-            {fbStatus === 'ok' ? 'Sincronizado' : fbStatus === 'error' ? 'Erro de ligação' : 'A ligar…'}
+            {fbStatus === 'ok' ? 'Sincronizado' : fbStatus === 'error' ? 'Erro de ligaÃ§Ã£o' : 'A ligarâ¦'}
           </div>
-          <button onClick={downloadAll} style={btnStyle('blue')}>⬇ Exportar Todos</button>
+          <button onClick={downloadAll} style={btnStyle('blue')}>â¬ Exportar Todos</button>
         </div>
       </header>
 
@@ -257,13 +257,13 @@ function ScoutingApp() {
       <div style={{ display: 'flex', borderBottom: '2px solid var(--border)', background: 'var(--bg2)', padding: '0 24px', flexShrink: 0 }}>
         {(['obs', 'rel'] as const).map(p => (
           <button key={p} onClick={() => setPage(p)} style={{ padding: '10px 20px', fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: 1, textTransform: 'uppercase', color: page === p ? 'var(--text)' : 'var(--text-dim)', cursor: 'pointer', border: 'none', background: 'transparent', borderBottom: page === p ? '2px solid var(--ac-red)' : '2px solid transparent', marginBottom: -2, transition: 'all .18s', display: 'flex', alignItems: 'center', gap: 7 }}>
-            {p === 'obs' ? '📝 Nova Observação' : '📂 Relatórios'}
+            {p === 'obs' ? 'ð Nova ObservaÃ§Ã£o' : 'ð RelatÃ³rios'}
             {p === 'rel' && <span style={{ background: 'var(--ac-red)', color: '#fff', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 8 }}>{savedReports.length}</span>}
           </button>
         ))}
       </div>
 
-      {/* PAGE: OBSERVAÇÃO */}
+      {/* PAGE: OBSERVAÃÃO */}
       {page === 'obs' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Player tabs */}
@@ -277,7 +277,7 @@ function ScoutingApp() {
                   <div style={{ position: 'absolute', top: 6, right: 22, width: 6, height: 6, borderRadius: '50%', background: p.savedState === 'saved' ? 'var(--grade-a)' : 'var(--grade-c)' }} />
                   <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.nome || 'Novo Jogador'}</span>
                   {pp && <span style={{ fontSize: 9, padding: '1px 4px', borderRadius: 3, background: 'rgba(0,63,138,.3)', color: '#6fa8dc', fontWeight: 700, fontFamily: "'Barlow Condensed', sans-serif" }}>{pp.abbr}</span>}
-                  <button onClick={e => { e.stopPropagation(); removePlayer(p.id) }} style={{ width: 15, height: 15, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: 'var(--text-muted)', cursor: 'pointer', background: 'none', border: 'none' }}>×</button>
+                  <button onClick={e => { e.stopPropagation(); removePlayer(p.id) }} style={{ width: 15, height: 15, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: 'var(--text-muted)', cursor: 'pointer', background: 'none', border: 'none' }}>Ã</button>
                 </div>
               )
             })}
@@ -292,7 +292,7 @@ function ScoutingApp() {
             <div style={{ padding: '20px 24px', overflowY: 'auto', borderRight: '1px solid var(--border)' }}>
               {!active ? (
                 <div style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--text-dim)' }}>
-                  <div style={{ fontSize: 40, marginBottom: 12, opacity: .3 }}>⚽</div>
+                  <div style={{ fontSize: 40, marginBottom: 12, opacity: .3 }}>â½</div>
                   <div>Clique em <strong>+ Novo Jogador</strong> para iniciar</div>
                 </div>
               ) : (
@@ -303,7 +303,7 @@ function ScoutingApp() {
                       <div style={{ width: 7, height: 7, borderRadius: '50%', background: saveCls === 'ok' ? 'var(--grade-a)' : saveCls === 'err' ? 'var(--grade-e)' : 'var(--grade-c)', animation: saveCls === 'pending' ? 'pulse 1s infinite' : 'none' }} />
                       {saveTxt}
                     </div>
-                    <button onClick={manualSave} style={btnStyle('green')}>💾 Guardar agora</button>
+                    <button onClick={manualSave} style={btnStyle('green')}>ð¾ Guardar agora</button>
                   </div>
 
                   <Section label="Foto do Jogador">
@@ -311,34 +311,34 @@ function ScoutingApp() {
                       <input type="file" accept="image/*" onChange={handlePhoto} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%' }} />
                       {active.photo
                         ? <img src={active.photo} style={{ width: 54, height: 54, borderRadius: 5, objectFit: 'cover', border: '2px solid var(--ac-red)', flexShrink: 0 }} alt="" />
-                        : <div style={{ width: 54, height: 54, borderRadius: 5, background: 'var(--surface2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, border: '1.5px solid var(--border2)' }}>📷</div>
+                        : <div style={{ width: 54, height: 54, borderRadius: 5, background: 'var(--surface2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, border: '1.5px solid var(--border2)' }}>ð·</div>
                       }
                       <div>
                         <strong style={{ display: 'block', fontSize: 12.5, color: 'var(--text)', marginBottom: 2 }}>{active.photo ? 'Alterar foto' : 'Carregar foto'}</strong>
-                        <span style={{ fontSize: 11, color: 'var(--text-dim)' }}>JPG ou PNG — guardada localmente</span>
+                        <span style={{ fontSize: 11, color: 'var(--text-dim)' }}>JPG ou PNG â guardada localmente</span>
                       </div>
                     </label>
                   </Section>
 
-                  <Section label="Informações do Jogador">
+                  <Section label="InformaÃ§Ãµes do Jogador">
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 9 }}>
-                      <Field label="Nome Completo" full><input value={active.nome} onChange={e => updateActive('nome', e.target.value)} placeholder="ex: João Silva" style={inputStyle} /></Field>
+                      <Field label="Nome Completo" full><input value={active.nome} onChange={e => updateActive('nome', e.target.value)} placeholder="ex: JoÃ£o Silva" style={inputStyle} /></Field>
                       <Field label="Idade"><input type="number" value={active.idade} onChange={e => updateActive('idade', e.target.value)} placeholder="22" style={inputStyle} /></Field>
                       <Field label="Nacionalidade"><input value={active.nacionalidade} onChange={e => updateActive('nacionalidade', e.target.value)} placeholder="ex: Portugal" style={inputStyle} /></Field>
                       <Field label="Clube Atual"><input value={active.clube} onChange={e => updateActive('clube', e.target.value)} placeholder="ex: SC Braga" style={inputStyle} /></Field>
-                      <Field label="Pé Dominante">
+                      <Field label="PÃ© Dominante">
                         <select value={active.pe} onChange={e => updateActive('pe', e.target.value)} style={inputStyle}>
-                          <option value="">–</option>
+                          <option value="">â</option>
                           <option>Direito</option><option>Esquerdo</option><option>Ambos</option>
                         </select>
                       </Field>
-                      <Field label="Número de Camisola"><input value={active.numero} onChange={e => updateActive('numero', e.target.value)} placeholder="ex: 10" style={inputStyle} /></Field>
-                      <Field label="Posição Específica em Campo" full><input value={active.posicaoEspecifica} onChange={e => updateActive('posicaoEspecifica', e.target.value)} placeholder="ex: LD – Lateral Direito, EE – Extremo Esquerdo, DCE – Defesa Central Esquerdo" style={inputStyle} /></Field>
-                      <Field label="Jogo Observado" full><input value={active.jogo} onChange={e => updateActive('jogo', e.target.value)} placeholder="ex: AC Cabeceirense vs SC Braga – 18/02/2026" style={inputStyle} /></Field>
+                      <Field label="NÃºmero de Camisola"><input value={active.numero} onChange={e => updateActive('numero', e.target.value)} placeholder="ex: 10" style={inputStyle} /></Field>
+                      <Field label="PosiÃ§Ã£o EspecÃ­fica em Campo" full><input value={active.posicaoEspecifica} onChange={e => updateActive('posicaoEspecifica', e.target.value)} placeholder="ex: LD â Lateral Direito, EE â Extremo Esquerdo, DCE â Defesa Central Esquerdo" style={inputStyle} /></Field>
+                      <Field label="Jogo Observado" full><input value={active.jogo} onChange={e => updateActive('jogo', e.target.value)} placeholder="ex: AC Cabeceirense vs SC Braga â 18/02/2026" style={inputStyle} /></Field>
                     </div>
                   </Section>
 
-                  <Section label="Posição em Campo">
+                  <Section label="PosiÃ§Ã£o em Campo">
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 7 }}>
                       {Object.entries(POSICOES).map(([k, p]) => (
                         <div key={k} onClick={() => updateActive('posicao', k)} style={{ padding: '8px 5px', borderRadius: 6, border: '1px solid', borderColor: active.posicao === k ? 'var(--ac-blue-light)' : 'var(--border)', background: active.posicao === k ? 'rgba(0,63,138,.22)' : 'var(--surface)', color: active.posicao === k ? '#6fa8dc' : 'var(--text-dim)', cursor: 'pointer', textAlign: 'center', fontFamily: "'Barlow Condensed', sans-serif", transition: 'all .18s' }}>
@@ -351,11 +351,11 @@ function ScoutingApp() {
 
                   {/* Competencies */}
                   {pos ? (
-                    <Section label="Avaliação por Competência">
+                    <Section label="AvaliaÃ§Ã£o por CompetÃªncia">
                       {ov && (
                         <div style={{ background: 'var(--surface2)', border: '1px solid var(--border2)', borderLeft: '3px solid var(--ac-red)', borderRadius: 6, padding: '11px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
                           <div>
-                            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 9, letterSpacing: 2.5, textTransform: 'uppercase', color: 'var(--text-dim)' }}>Classificação Geral</div>
+                            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 9, letterSpacing: 2.5, textTransform: 'uppercase', color: 'var(--text-dim)' }}>ClassificaÃ§Ã£o Geral</div>
                             <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{pos.competencias.filter(c => active.ratings[c]?.grade).length}/{pos.competencias.length} avaliadas</div>
                           </div>
                           <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 44, lineHeight: 1, color: GRADE_COLORS[ov] }}>{ov}</div>
@@ -388,7 +388,7 @@ function ScoutingApp() {
                               <textarea
                                 value={r.obs}
                                 onChange={e => updateObs(comp, e.target.value)}
-                                placeholder={`Observações sobre ${comp.toLowerCase()}…`}
+                                placeholder={`ObservaÃ§Ãµes sobre ${comp.toLowerCase()}â¦`}
                                 style={{ ...inputStyle, minHeight: 48, fontSize: 12.5, borderColor: 'transparent', background: 'var(--surface2)', fontStyle: 'normal', resize: 'vertical' }}
                               />
                             </div>
@@ -397,14 +397,14 @@ function ScoutingApp() {
                       })}
                     </Section>
                   ) : (
-                    <Section label="Avaliação por Competência">
-                      <div style={{ background: 'var(--surface)', border: '1px dashed var(--border2)', borderRadius: 7, padding: 18, textAlign: 'center', color: 'var(--text-muted)', fontSize: 12.5 }}>Seleciona uma posição para ver os critérios de avaliação</div>
+                    <Section label="AvaliaÃ§Ã£o por CompetÃªncia">
+                      <div style={{ background: 'var(--surface)', border: '1px dashed var(--border2)', borderRadius: 7, padding: 18, textAlign: 'center', color: 'var(--text-muted)', fontSize: 12.5 }}>Seleciona uma posiÃ§Ã£o para ver os critÃ©rios de avaliaÃ§Ã£o</div>
                     </Section>
                   )}
 
-                  <Section label="Resumo e Recomendação">
-                    <Field label="Observações Gerais">
-                      <textarea rows={5} value={active.resumo} onChange={e => updateActive('resumo', e.target.value)} placeholder="Avaliação geral, pontos fortes, fracos, recomendação…" style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.5 }} />
+                  <Section label="Resumo e RecomendaÃ§Ã£o">
+                    <Field label="ObservaÃ§Ãµes Gerais">
+                      <textarea rows={5} value={active.resumo} onChange={e => updateActive('resumo', e.target.value)} placeholder="AvaliaÃ§Ã£o geral, pontos fortes, fracos, recomendaÃ§Ã£oâ¦" style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.5 }} />
                     </Field>
                   </Section>
                 </>
@@ -414,14 +414,14 @@ function ScoutingApp() {
             {/* PREVIEW */}
             <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--bg2)' }}>
               <div style={{ padding: '12px 18px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
-                <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: 2.5, color: 'var(--text-dim)', textTransform: 'uppercase' }}>📄 Pré-visualização</div>
-                {active && <button onClick={downloadCurrent} style={btnStyle('red')}>⬇ PDF</button>}
+                <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: 2.5, color: 'var(--text-dim)', textTransform: 'uppercase' }}>ð PrÃ©-visualizaÃ§Ã£o</div>
+                {active && <button onClick={downloadCurrent} style={btnStyle('red')}>â¬ PDF</button>}
               </div>
               <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
                 {active ? <PdfPreview player={active} /> : (
                   <div style={{ textAlign: 'center', padding: '32px 14px', color: 'var(--text-muted)' }}>
-                    <div style={{ fontSize: 28, marginBottom: 8, opacity: .3 }}>📋</div>
-                    <div style={{ fontSize: 12 }}>A pré-visualização aparece aqui</div>
+                    <div style={{ fontSize: 28, marginBottom: 8, opacity: .3 }}>ð</div>
+                    <div style={{ fontSize: 12 }}>A prÃ©-visualizaÃ§Ã£o aparece aqui</div>
                   </div>
                 )}
               </div>
@@ -430,7 +430,7 @@ function ScoutingApp() {
         </div>
       )}
 
-      {/* PAGE: RELATÓRIOS */}
+      {/* PAGE: RELATÃRIOS */}
       {page === 'rel' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative' }}>
           {!detailGroup ? (
@@ -438,10 +438,10 @@ function ScoutingApp() {
               {/* Toolbar */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 24px', borderBottom: '1px solid var(--border)', background: 'var(--bg2)', flexShrink: 0, flexWrap: 'wrap' }}>
                 <div style={{ position: 'relative', flex: 1, minWidth: 200, maxWidth: 380 }}>
-                  <span style={{ position: 'absolute', left: 11, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 13, pointerEvents: 'none' }}>🔍</span>
-                  <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Pesquisar por nome ou clube…" style={{ ...inputStyle, paddingLeft: 33 }} />
+                  <span style={{ position: 'absolute', left: 11, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: 13, pointerEvents: 'none' }}>ð</span>
+                  <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Pesquisar por nome ou clubeâ¦" style={{ ...inputStyle, paddingLeft: 33 }} />
                 </div>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>Posição:</span>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>PosiÃ§Ã£o:</span>
                 <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
                   {['', ...Object.keys(POSICOES)].map(k => {
                     const used = new Set(savedReports.map(r => r.posicao))
@@ -454,7 +454,7 @@ function ScoutingApp() {
                   })}
                 </div>
                 <span style={{ fontSize: 12, color: 'var(--text-muted)', marginLeft: 'auto' }}>
-                  {savedReports.length} relatório{savedReports.length !== 1 ? 's' : ''}
+                  {savedReports.length} relatÃ³rio{savedReports.length !== 1 ? 's' : ''}
                 </span>
               </div>
 
@@ -473,7 +473,7 @@ function ScoutingApp() {
   )
 }
 
-/* ─── Reports List ─────────────────────────────────────────────── */
+/* âââ Reports List âââââââââââââââââââââââââââââââââââââââââââââââ */
 function ReportsList({ reports, filter, search, onOpenPlayer }: {
   reports: SavedReport[]
   filter: string
@@ -489,7 +489,7 @@ function ReportsList({ reports, filter, search, onOpenPlayer }: {
   const byPlayer: Record<string, { nome: string; clube: string; reports: SavedReport[] }> = {}
   filtered.forEach(r => {
     const key = (r.nome || '').trim().toLowerCase() || r.firestoreId
-    if (!byPlayer[key]) byPlayer[key] = { nome: r.nome || '—', clube: r.clube || '', reports: [] }
+    if (!byPlayer[key]) byPlayer[key] = { nome: r.nome || 'â', clube: r.clube || '', reports: [] }
     byPlayer[key].reports.push(r)
   })
   Object.values(byPlayer).forEach(p => p.reports.sort((a, b) => (b.criadoEm?.seconds ?? 0) - (a.criadoEm?.seconds ?? 0)))
@@ -497,8 +497,8 @@ function ReportsList({ reports, filter, search, onOpenPlayer }: {
 
   if (!list.length) return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, color: 'var(--text-muted)', padding: '60px 20px', textAlign: 'center' }}>
-      <div style={{ fontSize: 48, opacity: .2 }}>{reports.length ? '🔍' : '📂'}</div>
-      <div style={{ fontSize: 14, lineHeight: 1.6 }}>{reports.length ? 'Nenhum resultado para esta pesquisa.' : 'Ainda sem relatórios guardados.\nPreenche uma observação e guarda-a.'}</div>
+      <div style={{ fontSize: 48, opacity: .2 }}>{reports.length ? 'ð' : 'ð'}</div>
+      <div style={{ fontSize: 14, lineHeight: 1.6 }}>{reports.length ? 'Nenhum resultado para esta pesquisa.' : 'Ainda sem relatÃ³rios guardados.\nPreenche uma observaÃ§Ã£o e guarda-a.'}</div>
     </div>
   )
 
@@ -508,7 +508,7 @@ function ReportsList({ reports, filter, search, onOpenPlayer }: {
         const latest = group.reports[0]
         const ov = calcOverall(latest.ratings, latest.posicao)
         const ini = (group.nome || '?').split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2)
-        const positions = [...new Set(group.reports.map(r => POSICOES[r.posicao]?.label).filter(Boolean))]
+        const positions: string[] = [...new Set(group.reports.map(r => POSICOES[r.posicao]?.label).filter((x): x is string => Boolean(x)))]
         return (
           <div key={group.nome} onClick={() => onOpenPlayer(group)} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 8, overflow: 'hidden', cursor: 'pointer', transition: 'all .18s' }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(0,0,0,.4)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--border2)' }}
@@ -526,13 +526,13 @@ function ReportsList({ reports, filter, search, onOpenPlayer }: {
               </div>
               <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
                 {positions.map((p, i) => <Tag key={i} type="pos">{p as string}</Tag>)}
-                <Tag type="date">{group.reports.length} observaç{group.reports.length === 1 ? 'ão' : 'ões'}</Tag>
-                {latest.data && <Tag type="date">📅 {latest.data}</Tag>}
+                <Tag type="date">{group.reports.length} observaÃ§{group.reports.length === 1 ? 'Ã£o' : 'Ãµes'}</Tag>
+                {latest.data && <Tag type="date">ð {latest.data}</Tag>}
               </div>
             </div>
             <div style={{ padding: '8px 13px', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 10.5, color: 'var(--text-muted)' }}>{latest.idade ? latest.idade + ' anos' : ''}</span>
-              <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Clica para ver detalhes →</span>
+              <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Clica para ver detalhes â</span>
             </div>
           </div>
         )
@@ -541,7 +541,7 @@ function ReportsList({ reports, filter, search, onOpenPlayer }: {
   )
 }
 
-/* ─── Player Detail ─────────────────────────────────────────────── */
+/* âââ Player Detail âââââââââââââââââââââââââââââââââââââââââââââââ */
 function PlayerDetail({ group, onBack, onEdit, onDelete, onExport }: {
   group: { nome: string; clube: string; reports: SavedReport[] }
   onBack: () => void
@@ -552,9 +552,9 @@ function PlayerDetail({ group, onBack, onEdit, onDelete, onExport }: {
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 24px', borderBottom: '1px solid var(--border)', background: 'var(--bg2)', flexShrink: 0 }}>
-        <button onClick={onBack} style={{ background: 'var(--surface2)', border: '1px solid var(--border2)', color: 'var(--text-dim)', padding: '6px 14px', borderRadius: 5, cursor: 'pointer', fontSize: 12, fontWeight: 600, transition: 'all .15s' }}>← Voltar</button>
+        <button onClick={onBack} style={{ background: 'var(--surface2)', border: '1px solid var(--border2)', color: 'var(--text-dim)', padding: '6px 14px', borderRadius: 5, cursor: 'pointer', fontSize: 12, fontWeight: 600, transition: 'all .15s' }}>â Voltar</button>
         <div style={{ flex: 1, fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 20 }}>{group.nome}</div>
-        <button onClick={() => onExport(group.reports)} style={btnStyle('red')}>⬇ Exportar relatórios</button>
+        <button onClick={() => onExport(group.reports)} style={btnStyle('red')}>â¬ Exportar relatÃ³rios</button>
       </div>
       <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18, maxWidth: 860, margin: '0 auto' }}>
@@ -567,7 +567,7 @@ function PlayerDetail({ group, onBack, onEdit, onDelete, onExport }: {
   )
 }
 
-/* ─── Report Detail Card ────────────────────────────────────────── */
+/* âââ Report Detail Card ââââââââââââââââââââââââââââââââââââââââââ */
 function ReportDetailCard({ report: r, onEdit, onDelete }: {
   report: SavedReport
   onEdit: (r: SavedReport) => void
@@ -583,12 +583,12 @@ function ReportDetailCard({ report: r, onEdit, onDelete }: {
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap' }}>
           {pos && <Tag type="pos">{pos.label}</Tag>}
           {r.posicaoEspecifica && <Tag type="pos" style={{ background: 'rgba(0,63,138,.12)', color: '#8ab4e0', borderColor: 'rgba(0,63,138,.25)' }}>{r.posicaoEspecifica}</Tag>}
-          {r.data && <Tag type="date">📅 {r.data}</Tag>}
-          {r.jogo && <Tag type="jogo">⚽ {r.jogo}</Tag>}
+          {r.data && <Tag type="date">ð {r.data}</Tag>}
+          {r.jogo && <Tag type="jogo">â½ {r.jogo}</Tag>}
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
-          <button onClick={() => onEdit(r)} style={{ padding: '4px 10px', borderRadius: 4, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none', background: 'rgba(0,63,138,.2)', color: '#6fa8dc' }}>✏️ Editar</button>
-          <button onClick={() => onDelete(r.firestoreId)} style={{ padding: '4px 10px', borderRadius: 4, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none', background: 'rgba(255,255,255,.04)', color: 'var(--text-muted)' }}>🗑 Eliminar</button>
+          <button onClick={() => onEdit(r)} style={{ padding: '4px 10px', borderRadius: 4, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none', background: 'rgba(0,63,138,.2)', color: '#6fa8dc' }}>âï¸ Editar</button>
+          <button onClick={() => onDelete(r.firestoreId)} style={{ padding: '4px 10px', borderRadius: 4, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none', background: 'rgba(255,255,255,.04)', color: 'var(--text-muted)' }}>ð Eliminar</button>
         </div>
       </div>
 
@@ -597,8 +597,8 @@ function ReportDetailCard({ report: r, onEdit, onDelete }: {
         {ov && pos && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--surface2)', border: '1px solid var(--border2)', borderLeft: '3px solid var(--ac-red)', borderRadius: 6, padding: '10px 14px', marginBottom: 14 }}>
             <div>
-              <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Classificação Geral</div>
-              <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{pos.competencias.filter(c => r.ratings[c]?.grade).length}/{pos.competencias.length} competências avaliadas</div>
+              <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--text-muted)' }}>ClassificaÃ§Ã£o Geral</div>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{pos.competencias.filter(c => r.ratings[c]?.grade).length}/{pos.competencias.length} competÃªncias avaliadas</div>
             </div>
             <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 42, lineHeight: 1, color: GRADE_COLORS[ov] }}>{ov}</div>
           </div>
@@ -607,7 +607,7 @@ function ReportDetailCard({ report: r, onEdit, onDelete }: {
         {/* Competencies */}
         {pos && (
           <>
-            <SectionTitle>Avaliação por Competência</SectionTitle>
+            <SectionTitle>AvaliaÃ§Ã£o por CompetÃªncia</SectionTitle>
             {pos.competencias.map(c => {
               const rat = r.ratings?.[c] ?? { grade: null, obs: '' }
               const g = rat.grade
@@ -615,7 +615,7 @@ function ReportDetailCard({ report: r, onEdit, onDelete }: {
                 <div key={c}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 24px 120px', alignItems: 'center', gap: 10, padding: '5px 0', borderBottom: '1px solid rgba(255,255,255,.04)' }}>
                     <div style={{ fontSize: 12, color: 'var(--text-dim)' }}>{c}</div>
-                    <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 16, textAlign: 'center', color: g ? GRADE_COLORS[g] : 'var(--text-muted)' }}>{g || '–'}</div>
+                    <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 16, textAlign: 'center', color: g ? GRADE_COLORS[g] : 'var(--text-muted)' }}>{g || 'â'}</div>
                     <div style={{ height: 4, background: 'var(--surface3)', borderRadius: 2, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: g ? GRADE_PCT[g] + '%' : '0%', background: g ? GRADE_COLORS[g] : 'transparent', borderRadius: 2 }} />
                     </div>
@@ -630,7 +630,7 @@ function ReportDetailCard({ report: r, onEdit, onDelete }: {
         {/* Summary */}
         {r.resumo && (
           <>
-            <SectionTitle style={{ marginTop: 14 }}>Observações Gerais</SectionTitle>
+            <SectionTitle style={{ marginTop: 14 }}>ObservaÃ§Ãµes Gerais</SectionTitle>
             <div style={{ background: 'rgba(208,2,27,.06)', borderLeft: '3px solid var(--ac-red)', padding: '10px 13px', borderRadius: '0 6px 6px 0', fontSize: 12.5, color: 'var(--text-dim)', lineHeight: 1.65 }}>{r.resumo}</div>
           </>
         )}
@@ -639,7 +639,7 @@ function ReportDetailCard({ report: r, onEdit, onDelete }: {
   )
 }
 
-/* ─── PDF Preview ───────────────────────────────────────────────── */
+/* âââ PDF Preview âââââââââââââââââââââââââââââââââââââââââââââââââ */
 function PdfPreview({ player: p }: { player: Player }) {
   const pos = POSICOES[p.posicao]
   const ov = calcOverall(p.ratings, p.posicao)
@@ -652,11 +652,11 @@ function PdfPreview({ player: p }: { player: Player }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
           <div style={{ width: 32, height: 32 }}><Crest size={32} /></div>
           <div>
-            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 14, color: '#fff', letterSpacing: 1.5, textTransform: 'uppercase' }}>Atlético Cabeceirense</div>
+            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 14, color: '#fff', letterSpacing: 1.5, textTransform: 'uppercase' }}>AtlÃ©tico Cabeceirense</div>
             <div style={{ fontSize: 7, color: 'rgba(255,255,255,.6)', letterSpacing: 2.5, fontWeight: 600, textTransform: 'uppercase' }}>Futebol Clube</div>
           </div>
         </div>
-        <div style={{ fontSize: 7, color: 'rgba(255,255,255,.5)', letterSpacing: 2, fontWeight: 600, textTransform: 'uppercase' }}>Relatório de Observação</div>
+        <div style={{ fontSize: 7, color: 'rgba(255,255,255,.5)', letterSpacing: 2, fontWeight: 600, textTransform: 'uppercase' }}>RelatÃ³rio de ObservaÃ§Ã£o</div>
       </div>
       {/* Player band */}
       <div style={{ background: '#f5f7fc', borderBottom: '4px solid', borderImage: 'linear-gradient(90deg, #d0021b 50%, #003f8a 50%) 1', padding: '13px 18px', display: 'flex', gap: 13 }}>
@@ -667,7 +667,7 @@ function PdfPreview({ player: p }: { player: Player }) {
           <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 20, color: '#080e1c', lineHeight: 1, marginBottom: 4 }}>{p.nome || 'Nome do Jogador'}</div>
           {pos && <div style={{ display: 'inline-flex', padding: '2px 8px', borderRadius: 10, background: '#003f8a', color: '#fff', fontSize: 7.5, fontWeight: 700, fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 4 }}>{pos.label}</div>}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9 }}>
-            {[['Idade', p.idade], ['Clube', p.clube], ['Pé', p.pe], ['Nº', p.numero]].filter(([, v]) => v).map(([l, v]) => (
+            {[['Idade', p.idade], ['Clube', p.clube], ['PÃ©', p.pe], ['NÂº', p.numero]].filter(([, v]) => v).map(([l, v]) => (
               <div key={l}><div style={{ fontSize: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, color: '#99a8c0' }}>{l}</div><div style={{ fontSize: 10, fontWeight: 600, color: '#0a1020' }}>{v}</div></div>
             ))}
           </div>
@@ -678,8 +678,8 @@ function PdfPreview({ player: p }: { player: Player }) {
         {ov && pos && (
           <div style={{ background: 'linear-gradient(135deg, #080e1c, #0d1830)', borderRadius: 5, padding: '9px 13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, borderLeft: '3px solid #d0021b' }}>
             <div>
-              <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 8, letterSpacing: 2, textTransform: 'uppercase', color: '#5a7090' }}>Classificação Geral</div>
-              <div style={{ fontSize: 8, color: '#6a7a90', marginTop: 1 }}>{pos.competencias.filter(c => p.ratings[c]?.grade).length}/{pos.competencias.length} competências</div>
+              <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 8, letterSpacing: 2, textTransform: 'uppercase', color: '#5a7090' }}>ClassificaÃ§Ã£o Geral</div>
+              <div style={{ fontSize: 8, color: '#6a7a90', marginTop: 1 }}>{pos.competencias.filter(c => p.ratings[c]?.grade).length}/{pos.competencias.length} competÃªncias</div>
             </div>
             <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 30, lineHeight: 1, color: GRADE_COLORS[ov] }}>{ov}</div>
           </div>
@@ -691,7 +691,7 @@ function PdfPreview({ player: p }: { player: Player }) {
             <div key={c} style={{ marginBottom: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
                 <span style={{ fontSize: 10, fontWeight: 600, color: '#0a1020' }}>{c}</span>
-                <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 12, color: g ? GRADE_COLORS[g] : '#bbb' }}>{g || '–'}</span>
+                <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontSize: 12, color: g ? GRADE_COLORS[g] : '#bbb' }}>{g || 'â'}</span>
               </div>
               <div style={{ height: 3, background: '#e4ecf8', borderRadius: 2, overflow: 'hidden', marginBottom: 3 }}>
                 <div style={{ height: '100%', width: g ? GRADE_PCT[g] + '%' : '0%', background: g ? GRADE_COLORS[g] : 'transparent', borderRadius: 2 }} />
@@ -702,20 +702,20 @@ function PdfPreview({ player: p }: { player: Player }) {
         })}
         {p.resumo && (
           <>
-            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 8, letterSpacing: 3, textTransform: 'uppercase', color: '#003f8a', marginBottom: 7, paddingBottom: 4, borderBottom: '1.5px solid #d8e4f5', marginTop: 10 }}>Observações Gerais</div>
+            <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 8, letterSpacing: 3, textTransform: 'uppercase', color: '#003f8a', marginBottom: 7, paddingBottom: 4, borderBottom: '1.5px solid #d8e4f5', marginTop: 10 }}>ObservaÃ§Ãµes Gerais</div>
             <div style={{ background: '#fff5f6', borderLeft: '3px solid #d0021b', padding: '8px 11px', borderRadius: '0 4px 4px 0', fontSize: 10, color: '#2a3040', lineHeight: 1.65 }}>{p.resumo}</div>
           </>
         )}
       </div>
       <div style={{ background: 'linear-gradient(90deg, rgba(208,2,27,.05), rgba(0,63,138,.05))', borderTop: '1px solid #dde6f5', padding: '7px 18px', display: 'flex', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: 7, color: '#99a8c0' }}>Atlético Cabeceirense FC — Relatório Confidencial</span>
+        <span style={{ fontSize: 7, color: '#99a8c0' }}>AtlÃ©tico Cabeceirense FC â RelatÃ³rio Confidencial</span>
         <span style={{ fontSize: 7, color: '#99a8c0' }}>Data: {p.data}</span>
       </div>
     </div>
   )
 }
 
-/* ─── Small helpers ─────────────────────────────────────────────── */
+/* âââ Small helpers âââââââââââââââââââââââââââââââââââââââââââââââ */
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 20 }}>
